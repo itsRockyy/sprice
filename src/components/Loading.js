@@ -2,7 +2,7 @@ import React from "react";
 
 function Loading() {
   return (
-    <div class="loading">
+    <div className="loading">
       <div className="spinner-grow text-primary" role="status">
         <span className="sr-only">Loading...</span>
       </div>
