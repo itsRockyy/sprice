@@ -8,48 +8,57 @@ class App extends React.Component {
     loadingFeed: true,
     connected: false,
     stockMap: new Map(),
-    stocksArray: []
+    justUpdatedStocks: []
   };
 
   componentDidMount = () => {
-    const exampleSocket = new WebSocket("ws://stocks.mnet.website");
-    exampleSocket.onopen = this.socketOpened;
-    exampleSocket.onclose = this.socketClosed;
+    const mediaNetSocket = new WebSocket("ws://stocks.mnet.website");
+    mediaNetSocket.onopen = this.socketOpened;
+    mediaNetSocket.onclose = this.socketClosed;
 
-    exampleSocket.onmessage = message => {
-      let stockUpdates = JSON.parse(message.data);
-      stockUpdates = stockUpdates.map(element => {
-        return {
-          ticker: element[0],
-          price: parseFloat(element[1]).toFixed(4),
-          date: Date.now()
-        };
+    mediaNetSocket.onmessage = message => {
+      const stockUpdates = JSON.parse(message.data);
+      // console.log("stockUpdates", stockUpdates);
+
+      const stockMap = this.state.stockMap;
+      const justUpdatedStocks = [];
+
+      stockUpdates.forEach(item => {
+        const symbol = item[0];
+        justUpdatedStocks.push(symbol);
+        const price = parseFloat(item[1]).toFixed(3);
+        let time = new Date();
+        let hours =
+          time.getHours() >= 12 ? time.getHours() - 12 : time.getHours();
+        let ampm = time.getHours() >= 12 ? "P.M." : "A.M.";
+
+        time = `${hours}:${time.getMinutes()} ${ampm}`;
+
+        if (!this.state.stockMap.has(symbol)) {
+          stockMap.set(symbol, {
+            symbol,
+            price: [price],
+            time,
+            date: Date.now()
+          });
+        } else {
+          let oldStockEntry = stockMap.get(symbol);
+          oldStockEntry.price.push(price);
+          oldStockEntry.time = time;
+          oldStockEntry.date = Date.now();
+        }
       });
 
-      let map = new Map();
-      stockUpdates.forEach(element => {
-        map.set(element.ticker, {
-          symbol: element.ticker,
-          price: element.price,
-          date: element.date
-        });
-      });
+      // console.log("justUpdatedStocks", justUpdatedStocks);
 
       this.setState({
-        stockMap: map
-      });
-
-      // console.log(this.state);
-      let updatedStockArray = [];
-      this.state.stockMap.forEach(value => updatedStockArray.push(value));
-      // console.log(b);
-      this.setState({
-        stocksArray: [...updatedStockArray]
+        stockMap,
+        justUpdatedStocks
       });
     };
 
     setTimeout(() => {
-      exampleSocket.close();
+      mediaNetSocket.close();
     }, 5000);
   };
 
@@ -71,7 +80,10 @@ class App extends React.Component {
                 {this.state.loadingFeed ? (
                   <Loading />
                 ) : (
-                  <Feed stocks={this.state.stocksArray} />
+                  <Feed
+                    stockMap={this.state.stockMap}
+                    justUpdatedStocks={this.state.justUpdatedStocks}
+                  />
                 )}
               </div>
             </div>
