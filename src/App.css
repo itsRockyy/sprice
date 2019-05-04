@@ -17,14 +17,12 @@ h1 {
   font-size: 30px;
 }
 
-.fa-caret-down {
-  color: red;
+.red {
+  color: #dc3545;
 }
-
-.fa-caret-up {
-  color: green;
+.green {
+  color: #28a745;
 }
-
 .fa-caret-left,
 .fa-caret-right {
   color: goldenrod;

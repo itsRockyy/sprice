@@ -79,7 +79,7 @@ class App extends React.Component {
                 <span className="badge badge-danger">Disconnected</span>
               )}
               <p className="lead">Watch the Stock prices update in Real Time</p>
-              {this.state.loadingFeed ? (
+              {this.state.loadingFeed || this.state.stockMap.size === 0 ? (
                 <Loading />
               ) : (
                 <Feed

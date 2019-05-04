@@ -26,7 +26,7 @@ function Feed(props) {
         <tr>
           <th>Ticker</th>
           <th>Price</th>
-          <th>Last Update</th>
+          <th>Last Updated</th>
         </tr>
       </thead>
       <tbody>
