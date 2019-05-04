@@ -7,12 +7,12 @@ function Stock(props) {
   const justUpdated = props.justUpdated;
   let gain = false;
   let loss = false;
-  let nodiff = false;
+  // let nodiff = false;
   let priceDiff = parseFloat(price.slice(-1) - price.slice(-2, -1)).toFixed(2);
   if (price.length > 1) {
     gain = priceDiff > 0 && justUpdated;
     loss = priceDiff < 0 && justUpdated;
-    nodiff = priceDiff === 0 && justUpdated;
+    // nodiff = priceDiff == 0 && justUpdated;
   }
 
   const generateChart = ctx => {
@@ -57,6 +57,7 @@ function Stock(props) {
   };
 
   const showGraph = () => {
+    // console.log(price);
     let ctx = document.getElementById(symbol).childNodes[0];
     if (!ctx.parentElement.classList.contains("hide")) {
       Array.from(document.getElementsByClassName("chart")).forEach(element => {
@@ -81,8 +82,8 @@ function Stock(props) {
         {gain && <span> (+{priceDiff}) </span>}
         {loss && <i className="fas fa-caret-down" />}
         {loss && <span> ({priceDiff}) </span>}
-        {nodiff && <i className="fas fa-caret-left" />}
-        {nodiff && <i className="fas fa-caret-right" />}
+        {/* {!justUpdated && <i className="fas fa-caret-left" />}
+        {!justUpdated && <i className="fas fa-caret-right" />} */}
       </td>
       <td className="text-secondary">
         {justUpdated ? <p>Just Now</p> : <p>{props.stock.time}</p>}
@@ -92,11 +93,14 @@ function Stock(props) {
       </td>
       <td className="show-chart">
         <span
-          onClick={() => {
+          onMouseEnter={() => {
+            showGraph();
+          }}
+          onMouseLeave={() => {
             showGraph();
           }}
         >
-          Show Graph
+          <i className="fas fa-chart-line" />
         </span>
         <StockChart chartid={symbol} />
       </td>
