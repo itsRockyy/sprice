@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/sprice/static/css/main.bb1b310f.chunk.css",
-    "main.js": "/sprice/static/js/main.03e45e9b.chunk.js",
-    "main.js.map": "/sprice/static/js/main.03e45e9b.chunk.js.map",
+    "main.js": "/sprice/static/js/main.9e9d6ada.chunk.js",
+    "main.js.map": "/sprice/static/js/main.9e9d6ada.chunk.js.map",
     "runtime~main.js": "/sprice/static/js/runtime~main.da0f66e7.js",
     "runtime~main.js.map": "/sprice/static/js/runtime~main.da0f66e7.js.map",
     "static/js/2.65aa1cca.chunk.js": "/sprice/static/js/2.65aa1cca.chunk.js",
     "static/js/2.65aa1cca.chunk.js.map": "/sprice/static/js/2.65aa1cca.chunk.js.map",
     "index.html": "/sprice/index.html",
-    "precache-manifest.e36fd99328dbc429c57bf646b3a4eed0.js": "/sprice/precache-manifest.e36fd99328dbc429c57bf646b3a4eed0.js",
+    "precache-manifest.b6c7f90204e8715dea20030e018a5d22.js": "/sprice/precache-manifest.b6c7f90204e8715dea20030e018a5d22.js",
     "service-worker.js": "/sprice/service-worker.js",
     "static/css/main.bb1b310f.chunk.css.map": "/sprice/static/css/main.bb1b310f.chunk.css.map"
   }
