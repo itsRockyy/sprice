@@ -16,9 +16,12 @@ class App extends React.Component {
     mediaNetSocket.onopen = this.socketOpened;
     mediaNetSocket.onclose = this.socketClosed;
 
+    let count = 10;
     mediaNetSocket.onmessage = message => {
+      count--;
+      if (count === 0) mediaNetSocket.close();
       const stockUpdates = JSON.parse(message.data);
-      // console.log("stockUpdates", stockUpdates);
+      console.log("stockUpdates", stockUpdates);
 
       const stockMap = this.state.stockMap;
       const justUpdatedStocks = [];
@@ -30,9 +33,15 @@ class App extends React.Component {
         let time = new Date();
         let hours =
           time.getHours() >= 12 ? time.getHours() - 12 : time.getHours();
-        let ampm = time.getHours() >= 12 ? "P.M." : "A.M.";
+        let ampm = time.getHours() >= 12 ? " pm" : " am";
 
-        time = `${hours}:${time.getMinutes()} ${ampm}`;
+        time = `${hours.toString().padStart(2, "0")}:${time
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")}:${time
+          .getSeconds()
+          .toString()
+          .padStart(2, "0")} ${ampm}`;
 
         if (!this.state.stockMap.has(symbol)) {
           stockMap.set(symbol, {
@@ -48,18 +57,11 @@ class App extends React.Component {
           oldStockEntry.date = Date.now();
         }
       });
-
-      // console.log("justUpdatedStocks", justUpdatedStocks);
-
       this.setState({
         stockMap,
         justUpdatedStocks
       });
     };
-
-    setTimeout(() => {
-      mediaNetSocket.close();
-    }, 5000);
   };
 
   render() {
@@ -67,25 +69,24 @@ class App extends React.Component {
       <div className="App">
         <main role="main" className="flex-shrink-0">
           <div className="container">
-            <h1 className="mt-5">Live Stock Feed</h1>
-
-            {this.state.connected ? (
-              <span className="badge badge-success">Connected</span>
-            ) : (
-              <span className="badge badge-danger">Disconnected</span>
-            )}
-            <p className="lead">Watch the Stock prices update in Real Time</p>
-            <div className="card mb-3">
-              <div className="card-body">
-                {this.state.loadingFeed ? (
-                  <Loading />
-                ) : (
-                  <Feed
-                    stockMap={this.state.stockMap}
-                    justUpdatedStocks={this.state.justUpdatedStocks}
-                  />
-                )}
-              </div>
+            <h1 className="mt-5">
+              Live Stock Feed <i className="fas fa-chart-line" />
+            </h1>
+            <div style={{ position: "relative" }}>
+              {this.state.connected ? (
+                <span className="badge badge-success">Connected</span>
+              ) : (
+                <span className="badge badge-danger">Disconnected</span>
+              )}
+              <p className="lead">Watch the Stock prices update in Real Time</p>
+              {this.state.loadingFeed ? (
+                <Loading />
+              ) : (
+                <Feed
+                  stockMap={this.state.stockMap}
+                  justUpdatedStocks={this.state.justUpdatedStocks}
+                />
+              )}
             </div>
           </div>
         </main>

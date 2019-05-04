@@ -1,6 +1,6 @@
 .loading small {
   position: absolute;
-  top: 27px;
+  top: 54px;
 }
 
 h1 {
@@ -10,4 +10,41 @@ h1 {
 .badge {
   float: right;
   margin-top: 15px;
+}
+.fas {
+  margin-right: 2px;
+  margin-left: 2px;
+  font-size: 30px;
+}
+
+.fa-caret-down {
+  color: red;
+}
+
+.fa-caret-up {
+  color: green;
+}
+
+.fa-caret-left,
+.fa-caret-right {
+  color: goldenrod;
+}
+
+td {
+  padding: 5px;
+  height: 41px;
+}
+
+td p {
+  margin: 0px;
+  display: inline;
+}
+
+.card {
+  margin: 0 auto;
+}
+
+.table {
+  width: 70%;
+  margin: 0 auto;
 }
