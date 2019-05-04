@@ -27,6 +27,7 @@ function Feed(props) {
           <th>Ticker</th>
           <th>Price</th>
           <th>Last Updated</th>
+          <th class="mobile-hide">Show Graph</th>
         </tr>
       </thead>
       <tbody>

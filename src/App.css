@@ -9,7 +9,7 @@ h1 {
 
 .badge {
   float: right;
-  margin-top: 15px;
+  margin-top: -30px;
 }
 .fas {
   margin-right: 2px;
@@ -44,5 +44,40 @@ td p {
 
 .table {
   width: 70%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+}
+
+.show-chart {
+  position: relative;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.chart {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  bottom: -50px;
+  right: -200px;
+  transition: 0.25s;
+}
+
+.hide {
+  opacity: 0;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .show-chart,
+  .chart,
+  .mobile-hide {
+    display: none;
+  }
+  .table {
+    width: 100%;
+  }
+
+  .badge {
+    float: none;
+    margin-left: 75%;
+  }
 }

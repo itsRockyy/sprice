@@ -16,12 +16,12 @@ class App extends React.Component {
     mediaNetSocket.onopen = this.socketOpened;
     mediaNetSocket.onclose = this.socketClosed;
 
-    let count = 10;
+    let count = 5;
     mediaNetSocket.onmessage = message => {
       count--;
       if (count === 0) mediaNetSocket.close();
       const stockUpdates = JSON.parse(message.data);
-      console.log("stockUpdates", stockUpdates);
+      // console.log("stockUpdates", stockUpdates);
 
       const stockMap = this.state.stockMap;
       const justUpdatedStocks = [];
